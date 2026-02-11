@@ -1,0 +1,70 @@
+=============================================================================
+             MANUAL DE USO - ROBÔ EQUATORIAL (EQUATORIAL CYBORG)
+=============================================================================
+
+ESTRUTURA DE PASTAS NECESSÁRIA:
+Antes de iniciar, certifique-se de que a pasta está organizada assim:
+📁 (Pasta Principal)
+ ├── 📄 login.bat                 <-- (EXECUTAR ESTE ARQUIVO)
+ ├── 📄 LEIA-ME.txt
+ ├── 📁 src
+ │    └── 📄 app_hibrido.py       <-- (Código do Robô/Python)
+ └── 📁 output
+      ├── 📄 Cad_RateioConsumo_Final.xlsx  <-- (Planilha com os dados dos clientes)
+      └── 📁 faturas              <-- (Onde os PDFs serão salvos)
+
+=============================================================================
+                           COMO INICIAR O SISTEMA
+=============================================================================
+
+1. Certifique-se de que a planilha Excel está fechada e na pasta "output".
+2. Dê um DUPLO CLIQUE no arquivo "login.bat".
+   - Uma tela preta (terminal) vai abrir. Não feche ela.
+   - O sistema vai verificar se o Python e as bibliotecas estão instalados.
+   - Aguarde o painel de controle abrir.
+
+=============================================================================
+                           PASSO A PASSO DA OPERAÇÃO
+=============================================================================
+
+PASSO 1: O NAVEGADOR
+Assim que o painel abrir, o navegador Chrome vai iniciar automaticamente.
+> FAÇA O LOGIN MANUALMENTE no site da Equatorial com os dados do primeiro cliente
+  (CPF e Senha aparecem no painel do robô para você copiar).
+
+PASSO 2: BAIXAR FATURA
+Após estar logado e ver a tela inicial da conta:
+> Clique no botão VERDE "ROBÔ BAIXAR ÚLTIMA FATURA" no painel.
+
+PASSO 3: PRÓXIMO CLIENTE
+O robô vai tentar baixar o PDF e salvar na pasta "output/faturas".
+- Se der certo: Ele fará logout automático.
+- Se der erro: Leia a seção de "Problemas Conhecidos" abaixo.
+
+=============================================================================
+                    ⚠️  PROBLEMAS CONHECIDOS E SOLUÇÕES ⚠️ 
+=============================================================================
+
+1. ERRO NA PRIMEIRA EXECUÇÃO (PÁGINA NÃO CARREGA)
+   - Sintoma: Ao entrar no perfil pela primeira vez, o site pode não responder aos cliques ou ficar "travado".
+   - Solução: Aperte a tecla F5 no navegador para atualizar a página. Depois tente clicar no botão do robô novamente.
+
+2. TROCA DE CONTA CONTRATO (UC)
+   - Sintoma: Se o cliente tem várias UCs e o robô precisa trocar para outra UC automaticamente.
+   - Aviso: O robô vai detectar a diferença e trocar a UC na tela.
+   - Erro: Após trocar a UC, o robô pode não conseguir baixar a fatura sozinho na primeira tentativa.
+   - Solução: Se ele trocar a UC e parar, clique em "TENTAR NOVAMENTE (Com Cores Laranja)" novamente.
+   - Porém na hora de " VER FATURA" ele não vai conseguir baixar, por isso que precisamos baixar manualmente, e o robô vai sair do perfil automatico.
+
+3. ASSISTENTE VIRTUAL "CLARA"
+   - O robô tenta fechar a assistente virtual automaticamente, mas se ela bloquear a tela, feche-a manualmente.
+
+4. ATUALIZAÇÕES DO SITE
+   - Aviso Importante: Se a Equatorial mudar o layout do site, este robô pode parar de funcionar até ser atualizado.
+
+=============================================================================
+                               SUPORTE
+=============================================================================
+Em caso de erro crítico (tela vermelha no terminal), tire um print da tela preta
+e envie para o desenvolvedor.
+

@@ -1,0 +1,7 @@
+pandas
+openpyxl
+xlsxwriter
+selenium
+webdriver-manager
+undetected-chromedriver
+pyperclip

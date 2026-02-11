@@ -1,0 +1,174 @@
+=============================================================================
+           MANUAL DO SISTEMA: GERADOR DE RELATÓRIOS (EXCEL)
+=============================================================================
+
+ESTE MANUAL REFERE-SE AO ARQUIVO: executar.bat (e processador_excel.py)
+
+O objetivo deste módulo é ler todas as faturas em PDF baixadas pelo robô, 
+extrair os dados técnicos e financeiros, e gerar um relatório Excel 
+profissional e formatado.
+
+=============================================================================
+                           1. O MENU PRINCIPAL
+=============================================================================
+
+Ao iniciar o programa, você verá 5 opções. Veja o que cada uma faz:
+
+[1] 🎨 Criar relatório profissional (Excel formatado)
+    - ESTA É A OPÇÃO PRINCIPAL.
+    - O sistema pedirá um Mês de Referência (ex: 02/2026).
+    - Ele lerá TODOS os PDFs na pasta 'output/faturas'.
+    - Aplicará a "Regra da Data de Leitura" (Dia 12) para filtrar apenas 
+      o que pertence a esse ciclo.
+    - Gera o arquivo Excel final na pasta 'output/relatorios'.
+
+[2] 🔍 Testar extração de um arquivo
+    - Modo de diagnóstico.
+    - Lista os PDFs e permite que você escolha um único arquivo.
+    - O sistema mostra na tela preta tudo que conseguiu ler daquele PDF.
+    - Use isso se uma fatura específica estiver vindo com dados zerados.
+
+[3] 📊 Ver estatísticas das pastas
+    - Mostra quantos arquivos existem na pasta de faturas e o tamanho total.
+    - Serve para conferir se o Robô de Download baixou tudo corretamente.
+
+[4] 📖 Ver estrutura do relatório
+    - Mostra na tela a lista de colunas que serão geradas (igual ao item 3 deste manual).
+
+[5] 🚪 Sair
+    - Fecha o programa.
+
+=============================================================================
+                     2. DICIONÁRIO DE DADOS (COLUNAS DO EXCEL)
+=============================================================================
+
+Abaixo está a explicação detalhada de cada coluna gerada no relatório Excel,
+identificada pela letra da coluna e o dado que ela contém.
+
+--- GRUPO: IDENTIFICAÇÃO (AZUL) ---
+A | UC (Conta Contrato)
+  - Número único que identifica a unidade consumidora na Equatorial.
+  - Usado como chave para buscar o nome do cliente.
+
+B | INSTALAÇÃO
+  - Número físico da instalação/medidor.
+
+C | NOME CLIENTE
+  - Nome do cliente trazido da base de dados (Cad_RateioConsumo_Final.xlsx).
+  - Se estiver "NÃO ENCONTRADO", significa que a UC do PDF não está na planilha base.
+
+D | ID CLIENTE
+  - Código interno do cliente (se houver na planilha base).
+
+E | STATUS
+  - "✅ OK": Dados cruzados com sucesso.
+  - "⚠️ SEM BASE": A fatura foi lida, mas não sabemos de quem é (UC nova ou erro no cadastro).
+
+--- GRUPO: DATAS (LARANJA) ---
+F | MÊS REF
+  - O mês que está escrito no PDF da fatura (ex: 01/2026).
+  - CUIDADO: A Equatorial às vezes emite referência de Janeiro com leitura em Fevereiro.
+
+G | MÊS COMPETÊNCIA (CÁLCULO AUTOMÁTICO)
+  - Esta é a data REAL para fins de contabilidade.
+  - Regra aplicada: Se a leitura foi feita até o dia 12, conta como mês atual. 
+    Se foi após dia 12, conta como mês seguinte.
+
+H | VENCIMENTO
+  - Data limite para pagamento da fatura.
+
+I | DATA EMISSÃO
+  - Data em que a nota fiscal foi gerada pela Equatorial.
+
+J | LEITURA ANTERIOR
+  - Data em que foi feita a medição do mês passado.
+
+K | DATA LEITURA
+  - Data da medição atual. É esta data que define a coluna "G" (Competência).
+
+L | PRÓXIMA LEITURA
+  - Previsão da próxima visita do leiturista.
+
+--- GRUPO: MEDIÇÃO E GERAÇÃO (VERDE) ---
+M | MEDIDOR ANTERIOR (kWh)
+  - O número que estava no relógio mês passado.
+
+N | MEDIDOR ATUAL (kWh)
+  - O número que está no relógio este mês.
+
+O | CONSUMO MEDIDO (kWh)
+  - Quanto foi consumido da rede da Equatorial.
+
+P | ENERGIA COMP. (kWh)
+  - Energia Compensada (Geração Distribuída/Solar).
+  - É a quantidade de energia que foi abatida da conta graças à usina solar.
+
+Q | SALDO ACUMULADO (kWh)
+  - O "banco de créditos" de energia solar que a unidade ainda possui.
+
+--- GRUPO: VALORES FINANCEIROS (VERMELHO) ---
+R | VALOR TOTAL (R$)
+  - O valor final do boleto a pagar.
+
+S | VALOR CONSUMO (R$)
+  - Quanto custaria a energia se não houvesse energia solar.
+
+T | VALOR COMPENSADO (R$)
+  - O valor em Reais que foi economizado/abatido pela energia solar.
+
+U | VALOR ENERGIA INJ. (R$)
+  - Valor referente à taxa de injeção (quando aplicável).
+
+V | CIP (R$)
+  - Contribuição de Iluminação Pública (taxa da prefeitura).
+
+W | ADIC. BANDEIRA (R$)
+  - Valor extra pago se a bandeira tarifária for Amarela ou Vermelha.
+
+--- GRUPO: PREÇOS UNITÁRIOS (ROXO) ---
+X | PREÇO UNIT. CONSUMO (R$/kWh)
+  - Preço do kWh cobrado pela Equatorial (Tarifa cheia com impostos).
+
+Y | PREÇO UNIT. COMPENSADO (R$/kWh)
+  - Preço do kWh usado para calcular o crédito solar.
+
+--- GRUPO: TRIBUTOS - VALORES (AZUL CLARO) ---
+Z  | ICMS (R$)   - Valor monetário pago de ICMS.
+AA | PIS (R$)    - Valor monetário pago de PIS.
+AB | COFINS (R$) - Valor monetário pago de COFINS.
+
+--- GRUPO: TRIBUTOS - ALÍQUOTAS (ROSA) ---
+AC | ICMS (%)    - Porcentagem aplicada (ex: 18%, 27%).
+AD | PIS (%)     - Porcentagem do PIS.
+AE | COFINS (%)  - Porcentagem do COFINS.
+
+--- GRUPO: INFORMAÇÕES TÉCNICAS (MARROM) ---
+AF | TIPO FORNECIMENTO
+  - Ex: Monofásico, Bifásico, Trifásico.
+
+AG | CLASSIFICAÇÃO
+  - Ex: B1 Residencial, B2 Rural, B3 Comercial.
+
+AH | COR DA BANDEIRA
+  - Campo visual importante.
+  - O Excel pintará esta célula de VERDE, AMARELO ou VERMELHO automaticamente.
+  - Indica se houve taxa extra de escassez hídrica.
+
+AI | BANDEIRA TARIF. (INFO)
+  - Texto completo descritivo da bandeira (ex: "Escassez Hídrica Patamar 2").
+
+--- GRUPO: CONTROLE (CINZA) ---
+AJ | ARQUIVO
+  - Nome do arquivo PDF de onde os dados foram tirados. Útil para auditoria.
+
+AK | ERRO EXTRAÇÃO
+  - Se esta coluna tiver texto, houve algum problema ao ler o PDF.
+  - Ex: "Valor total não encontrado".
+  - Verifique o PDF manualmente nestes casos.
+
+=============================================================================
+                           OBSERVAÇÕES FINAIS
+=============================================================================
+1. As colunas coloridas facilitam a leitura visual por grupos (Financeiro, Técnico, Datas).
+2. O sistema gera uma aba "RESUMO" e "ESTATÍSTICAS" além da aba principal "DETALHES".
+3. Se um valor estiver zerado (0,00), significa que o sistema não encontrou aquele campo específico no PDF (o que é comum em faturas zeradas ou com crédito total).

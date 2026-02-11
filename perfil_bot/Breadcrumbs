@@ -1,0 +1,30 @@
+0:00:05 Tab1 StartNav14 #typed
+0:00:06 Tab1 FinishNav14
+0:00:06 Tab1 StartNav15 #google #renderer-script #auto_subframe
+0:00:06 Tab1 StartNav16 #google #renderer-script #auto_subframe
+0:00:06 Tab1 StartNav17 #renderer-script #auto_subframe
+0:00:06 Tab1 FinishNav17
+0:00:06 Tab1 PageLoad
+0:00:06 Tab1 StartNav18 #renderer-script #auto_subframe
+0:00:06 Tab1 FinishNav18
+0:00:06 Tab1 PageLoad
+0:00:06 Tab1 FinishNav15
+0:00:06 Tab1 FinishNav16
+0:00:06 Tab1 StartNav19 #renderer-script #auto_subframe
+0:00:06 Tab1 FinishNav19
+0:00:06 Tab1 PageLoad
+0:00:06 Tab1 PageLoad #google
+0:00:06 Tab1 PageLoad #google
+0:00:07 Tab1 StartNav20 #renderer-script #auto_subframe
+0:00:07 Tab1 FinishNav20
+0:00:07 Tab1 PageLoad
+0:00:07 Tab1 StartNav21 #renderer-script #auto_subframe
+0:00:07 Tab1 FinishNav21
+0:00:07 Tab1 PageLoad
+0:00:07 Tab1 StartNav22 #renderer-script #auto_subframe
+0:00:07 Tab1 FinishNav22
+0:00:07 Tab1 PageLoad
+0:00:07 Tab1 StartNav23 #renderer-script #auto_subframe
+0:00:07 Tab1 FinishNav23
+0:00:07 Tab1 PageLoad
+0:00:07 Tab1 PageLoad

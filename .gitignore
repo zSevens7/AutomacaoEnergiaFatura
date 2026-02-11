@@ -1,0 +1,19 @@
+# --- PASTAS COM DADOS CONFIDENCIAIS ---
+# Ignora as faturas PDF, os relatórios gerados e os logs de debug
+output/faturas/
+output/relatorios/
+output/debug/
+
+# Ignora a base de clientes Excel (Contém CPFs e nomes)
+Cad_RateioConsumo_Final.xlsx
+
+# --- PYTHON ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# --- SISTEMA ---
+.DS_Store
+Thumbs.db
